@@ -60,4 +60,4 @@ cat /home/user/level4/.pass
 b209ea91ad69ef36f2cf0fcbbc24c739fd10464cf545b20bea8572ebdc3c36fa
 ```
 
-%n write to the specified argument the size of the string before the %n so we write the address to modify to set it on the stack and then we writing the length into the argument at the offset 4
+%n write to the specified argument the size of the string before the %n in the associed argument wich is a int*. So we writing the address to got it in the stack and then we write the length of the substring on the 4th argument, were the string is so were the address is set in the stack.
