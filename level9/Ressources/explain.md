@@ -88,7 +88,7 @@ End of assembler dump.
 
 We see that we seg fault at `0x08048682` because we try to 	`dereference eax` that have been overwrite and is equal to `0x41414141`
 
-So we can do some think with `eax`
+So we can do something with `eax`
 
 ### Check the value of eax
 
