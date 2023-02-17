@@ -34,3 +34,35 @@ Segmentation fault (core dumped)
 ```
 
 Seg. fault because set '\0' too far
+
+```s
+iVar2 = atoi(*(char **)(param_2 + 4));
+*(undefined *)((int)local_98 + iVar2) = 0; //set null byte to local_98 at he given av[1]
+[...]
+iVar2 = strcmp((char *)local_98, *(char **)(param_2 + 4)); // if av[1] == local_98 exec /bin/sh
+```
+
+If I run `./bonus3 0` the strcmp should be 0 == 0 and return 0
+
+```sh
+bonus3@RainFall:~$ ./bonus3 0 | cat -e
+$
+```
+
+but here we don't seg. fault
+
+When I test that :
+
+```c
+int main(){
+	char local_98[50] = "test";
+	int iVar2 = atoi("0");
+	printf("%d\n", iVar2);
+	*(char *)((int)local_98 + iVar2) = 0;
+	int test = strcmp(local_98, 0);
+	printf("%d\n", test);
+}
+```
+
+There is a seg fault so I don't understand something
+
