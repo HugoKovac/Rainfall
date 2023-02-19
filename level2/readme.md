@@ -94,6 +94,14 @@ So now system will search his argument at ebp + 8
 
 	1st arg
 
+Once the ret instruction is executed, the EIP will be set to the address of the ret instruction in the p function. This means that the stack will contain the address of the ret instruction, which will be loaded into the EIP register.
+
+The execution will jump to the address of the system function because the address of the system function was placed on the stack immediately after the return address of the p function. When the ret instruction is executed, it pops the return address off the stack and into the EIP register, causing the execution to resume at that address. However, since the address of the system function is directly after the return address on the stack, the EIP register is loaded with that address instead, causing the program to execute the system function instead of returning to the p function.
+
+This function will be executed with the arguments that follow it on the stack, which in this case is the address of the string "/bin/sh".
+
+The system function will then execute with the "/bin/sh" argument, which will start a new shell with the permissions of the current process. This will allow the attacker to gain full access to the system and execute any commands they want.
+
 so the need argument at EBP + 4 will be at EIP + 4 :
 
 ```sh
